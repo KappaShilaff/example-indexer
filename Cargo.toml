@@ -14,6 +14,9 @@ anyhow = "1.0.38"
 sqlx = { version = "0.6.0", features = ["runtime-tokio-native-tls", "postgres", "uuid", "bigdecimal", "offline", "chrono", "json"] }
 futures = { version = "0.3" }
 config = { version = "0.13.3", default-features = false }
+log = { version = "0.4", features = ["std", "serde"] }
+url = { version = "2.2.2", features = ["serde"] }
+itertools = "0.11.0"
 
 stackdriver_logger = { git = "https://github.com/dexpa/stackdriver-logger" }
 
@@ -21,7 +24,7 @@ nekoton = { git = "https://github.com/broxus/nekoton.git", default-features = fa
 nekoton-abi = { git = "https://github.com/broxus/nekoton.git" }
 nekoton-utils = { git = "https://github.com/broxus/nekoton.git" }
 
-transaction-consumer = { git = "https://github.com/broxus/transaction-consumer" }
+transaction-consumer = { git = "https://github.com/broxus/transaction-consumer", branch = "update" }
 transaction-buffer = {git = "https://github.com/broxus/transaction-buffer.git"}
 
 ton_abi = { git = "https://github.com/broxus/ton-labs-abi" }

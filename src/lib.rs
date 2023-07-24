@@ -1,8 +1,11 @@
 use std::collections::HashMap;
+use std::str::FromStr;
 
 use anyhow::Result;
+use itertools::Itertools;
 use sqlx::PgPool;
 use sqlx::postgres::PgPoolOptions;
+use url::Url;
 
 use crate::settings::{Config, get_config};
 
@@ -43,12 +46,16 @@ fn get_kafka_settings(config: &Config) -> (String, String, Vec<Url>, HashMap<Str
     kafka_settings.insert("client.id".into(), config.kafka_client_id.clone());
 
     (
-        config.kafka_group_id.clone(), // group_id
-        config.kafka_topic.clone(),    // topic
+        config.kafka_group_id.clone(),
+        config.kafka_topic.clone(),
         from_string_to_vec(config.states_rpc_endpoint.clone())
             .into_iter()
             .map(|x| Url::from_str(&x).unwrap())
-            .collect_vec(), // states_rpc_endpoint
+            .collect_vec(),
         kafka_settings,
     )
+}
+
+pub fn from_string_to_vec(input: String) -> Vec<String> {
+    input.split(',').map(|x| x.to_string()).collect_vec()
 }
